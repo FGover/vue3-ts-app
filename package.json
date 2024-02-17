@@ -11,7 +11,11 @@
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "prepare": "husky && husky install"
+    "prepare": "husky && husky install",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged":{
+    "*.{js,ts,vue}": "eslint --fix"
   },
   "dependencies": {
     "pinia": "^2.1.7",
@@ -29,6 +33,7 @@
     "eslint": "^8.49.0",
     "eslint-plugin-vue": "^9.17.0",
     "husky": "^8.0.0",
+    "lint-staged": "^15.2.2",
     "npm-run-all2": "^6.1.1",
     "prettier": "^3.0.3",
     "typescript": "~5.3.0",
