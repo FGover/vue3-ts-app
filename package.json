@@ -14,7 +14,7 @@
     "prepare": "husky && husky install",
     "lint-staged": "lint-staged"
   },
-  "lint-staged":{
+  "lint-staged": {
     "*.{js,ts,vue}": "eslint --fix"
   },
   "dependencies": {
@@ -32,7 +32,7 @@
     "@vue/tsconfig": "^0.5.1",
     "eslint": "^8.49.0",
     "eslint-plugin-vue": "^9.17.0",
-    "husky": "^8.0.0",
+    "husky": "^8.0.3",
     "lint-staged": "^15.2.2",
     "npm-run-all2": "^6.1.1",
     "prettier": "^3.0.3",
