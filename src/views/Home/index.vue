@@ -1,5 +1,7 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div>User</div>
+  <div class="home-page">
+    <div>Home</div>
+  </div>
 </template>

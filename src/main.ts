@@ -7,6 +7,7 @@ import pinia from './stores/index'
 import 'vant/lib/index.css'
 import './styles/main.scss'
 
+// 全局注册svg组件
 import 'virtual:svg-icons-register'
 
 const app = createApp(App)
