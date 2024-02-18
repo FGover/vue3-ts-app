@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import CpNavBar from '@/components/CpNavBar.vue'
 import { ref, onUnmounted } from 'vue'
 import { mobileRules, passRules, codeRules } from '@/utils/rules'
 import { loginByPassword, loginBySmsCode, sendSmsCode } from '@/services/user'
@@ -49,6 +48,12 @@ const onSendSms = async () => {
   }, 1000)
 }
 
+// 密码可见不可见
+const isEyePass = ref(false)
+const eyePass = () => {
+  isEyePass.value = !isEyePass.value
+}
+
 onUnmounted(() => {
   clearInterval(timer)
 })
@@ -74,13 +79,22 @@ onUnmounted(() => {
         clearable
       />
       <van-field
+        ref="pass"
         v-if="isPass"
         v-model="password"
         :rules="passRules"
-        type="password"
+        :type="isEyePass ? 'text' : 'password'"
         placeholder="请输入密码"
         clearable
-      />
+      >
+        <template #button>
+          <cp-icon
+            @click="eyePass"
+            :name="isEyePass ? 'login-eye-on' : 'login-eye-off'"
+            style="margin-right: 10px"
+          ></cp-icon>
+        </template>
+      </van-field>
       <van-field v-else v-model="code" :rules="codeRules" placeholder="请输入验证码">
         <template #button>
           <span class="btn-send" :class="{ active: time > 0 }" @click="onSendSms">{{
