@@ -10,7 +10,9 @@ export default defineConfig({
   plugins: [
     vue(),
     Components({
-      resolvers: [VantResolver()]
+      // 不生成组件类型文件
+      dts: false,
+      resolvers: [VantResolver({ importStyle: false })]
     })
   ],
   resolve: {
