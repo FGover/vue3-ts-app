@@ -2,9 +2,10 @@
 import { useRouter } from 'vue-router'
 
 // 使用props定义标题、右侧文字等属性
-defineProps<{
+const props = defineProps<{
   title?: string
   rightText?: string
+  back?: () => void
 }>()
 
 // 自定义事件
@@ -20,6 +21,7 @@ const onClickRight = () => {
 // console.log(history.state)
 const router = useRouter()
 const onClickLeft = () => {
+  if (props.back) return props.back()
   if (history.state.back) {
     router.back()
   } else {
