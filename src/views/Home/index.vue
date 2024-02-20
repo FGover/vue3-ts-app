@@ -2,8 +2,11 @@
 import { ref } from 'vue'
 import ArticleList from './components/ArticleList.vue'
 import LikeDoctor from './components/LikeDoctor.vue'
+import { useConsultStore } from '@/stores'
+import { ConsultType } from '@/enum'
 
-const active = ref(0)
+const active = ref(1)
+const consultStore = useConsultStore()
 </script>
 
 <template>
@@ -27,7 +30,11 @@ const active = ref(0)
           </router-link>
         </van-col>
         <van-col span="8">
-          <router-link to="/" class="nav">
+          <router-link
+            to="/consult/fast"
+            class="nav"
+            @click="consultStore.setType(ConsultType.Fast)"
+          >
             <cp-icon name="home-graphic"></cp-icon>
             <p class="title">极速问诊</p>
             <p class="desc">20s医生极速回复</p>
@@ -78,6 +85,9 @@ const active = ref(0)
         </van-swipe-item>
         <van-swipe-item>
           <img src="@/assets/img/7.png" alt="" />
+        </van-swipe-item>
+        <van-swipe-item>
+          <img src="@/assets/ad.png" alt="" />
         </van-swipe-item>
         <van-swipe-item>
           <img src="@/assets/img/5.png" alt="" />

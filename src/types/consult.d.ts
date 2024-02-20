@@ -1,3 +1,5 @@
+import { ConsultType, IllnessTime } from '@/enum'
+
 // 文章信息类型
 export type ArticleInfo = {
   id: string
@@ -83,3 +85,46 @@ export type DoctorListPagination = {
 
 // 关注类型：百科话题 | 百科文章 | 医生 | 疾病
 export type FollowType = 'topic' | 'knowledge' | 'doc' | 'disease'
+
+// 图片类型
+export type Image = {
+  id: string
+  url: string
+}
+
+// 问诊记录
+export type ConsultRecord = {
+  id: string
+  // 问诊类型
+  type: ConsultType
+  // 快速问诊类型： 0普通 1三甲
+  illnessType: 0 | 1
+  depId: string
+  illnessDesc: string
+  illnessTime: IllnessTime
+  // 是否就诊过：0未就诊过 1就诊过
+  consultFlag: 0 | 1
+  // 图片数组
+  pictures: Image[]
+  // 患者Id
+  patientId: string
+  // 优惠券Id
+  couponId: string
+}
+
+// Partial<T> 把对象的所有属性转成可选
+export type PartialConsultRecord = Partial<ConsultRecord>
+// Required<T> 把对象的所有属性转成必选
+// type RequiredConsultRecord = Required<ConsultRecord>
+
+// 二级科室
+export type SubDep = {
+  id: string
+  name: string
+}
+
+// 一级科室
+export type MainDep = SubDep & {
+  child: SubDep[]
+}
+export type MainDepList = MainDep[]

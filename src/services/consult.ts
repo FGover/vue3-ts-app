@@ -3,6 +3,7 @@ import type {
   ArticleListParams,
   DoctorListPagination,
   FollowType,
+  MainDepList,
   PageParams
 } from '@/types/consult'
 import { request } from '@/utils/request'
@@ -18,3 +19,6 @@ export const getDoctorList = (params: PageParams) =>
 // 关注或取消关注
 export const followOrUnfollow = (id: string, type: FollowType) =>
   request('like', 'POST', { id, type })
+
+// 获取科室信息
+export const getAllDep = () => request<MainDepList>('dep/all')

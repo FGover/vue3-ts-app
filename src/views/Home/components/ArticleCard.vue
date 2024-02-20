@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { useFollow } from '@/composables'
 import type { ArticleInfo } from '@/types/consult'
 
 defineProps<{
   item: ArticleInfo
 }>()
+const { loading, follow } = useFollow('knowledge')
 </script>
 
 <template>
@@ -17,7 +19,15 @@ defineProps<{
           {{ item.creatorHospatalName }} {{ item.creatorDep }} {{ item.creatorTitles }}
         </p>
       </div>
-      <van-button type="primary" plain class="btn" size="small" round>
+      <van-button
+        type="primary"
+        plain
+        class="btn"
+        size="small"
+        round
+        :loading="loading"
+        @click="follow(item)"
+      >
         {{ item.likeFlag === 1 ? '已关注' : '+ 关注' }}
       </van-button>
     </div>
