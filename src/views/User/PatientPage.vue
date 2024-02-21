@@ -2,7 +2,7 @@
 import { getPatientList, addPatient, updatePatient, delPatient } from '@/services/user'
 import type { PatientList, Patient } from '@/types/user'
 import { nameRules, idCardRules } from '@/utils/rules'
-import { showConfirmDialog, type FormInstance, showSuccessToast } from 'vant'
+import { showConfirmDialog, type FormInstance, showSuccessToast, showToast } from 'vant'
 import { computed } from 'vue'
 import { onMounted, ref } from 'vue'
 
@@ -15,8 +15,8 @@ const getPatient = async () => {
 // const count = ref(10)
 
 const options = [
-  { label: '男', value: 1 },
-  { label: '女', value: 0 }
+  { label: '男', value: 1, msg: '请填写性别' },
+  { label: '女', value: 0, msg: '请填写性别' }
 ]
 
 const show = ref(false)
@@ -48,31 +48,35 @@ const defaultFlag = computed({
 
 const form = ref<FormInstance>()
 const onSubmit = async () => {
-  // 表单校验
-  await form.value?.validate()
-  // 性别校验 身份证倒数第二位 0女 1男
-  const gender = Number(patient.value.idCard.slice(-2, -1)) % 2
-  if (gender !== patient.value.gender) {
-    showConfirmDialog({
-      title: '温馨提示',
-      message: '填写的性别和身份证上的不一致，请确认'
-    })
-      .then(async () => {
-        // 提交表单
-        patient.value.id ? await updatePatient(patient.value) : await addPatient(patient.value)
-        show.value = false
-        getPatient()
-        showSuccessToast(patient.value.id ? '编辑成功' : '添加成功')
+  if (patient.value.gender === 0 || patient.value.gender === 1) {
+    // 表单校验
+    await form.value?.validate()
+    // 性别校验 身份证倒数第二位 0女 1男
+    const gender = Number(patient.value.idCard.slice(-2, -1)) % 2
+    if (gender !== patient.value.gender) {
+      showConfirmDialog({
+        title: '温馨提示',
+        message: '填写的性别和身份证上的不一致，请确认'
       })
-      .catch(() => {
-        // 取消
-      })
+        .then(async () => {
+          // 提交表单
+          patient.value.id ? await updatePatient(patient.value) : await addPatient(patient.value)
+          show.value = false
+          getPatient()
+          showSuccessToast(patient.value.id ? '编辑成功' : '添加成功')
+        })
+        .catch(() => {
+          // 取消
+        })
+    } else {
+      // 提交表单
+      patient.value.id ? await updatePatient(patient.value) : await addPatient(patient.value)
+      show.value = false
+      getPatient()
+      showSuccessToast(patient.value.id ? '编辑成功' : '添加成功')
+    }
   } else {
-    // 提交表单
-    patient.value.id ? await updatePatient(patient.value) : await addPatient(patient.value)
-    show.value = false
-    getPatient()
-    showSuccessToast(patient.value.id ? '编辑成功' : '添加成功')
+    showToast('请填写性别')
   }
 }
 

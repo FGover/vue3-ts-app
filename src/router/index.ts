@@ -41,6 +41,12 @@ const router = createRouter({
       component: () => import('@/views/Consult/ConsultDep.vue')
     },
     {
+      path: '/consult/illness',
+      name: 'illness',
+      meta: { title: '病情描述' },
+      component: () => import('@/views/Consult/ConsultIllness.vue')
+    },
+    {
       path: '/consult/doctor',
       name: 'doctor',
       meta: { title: '选择科室' },

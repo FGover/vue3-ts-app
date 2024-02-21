@@ -1,4 +1,4 @@
-# consult-patient-vue3
+# vue3 + ts 问诊app
 
 This template should help get you started developing with Vue 3 in Vite.
 

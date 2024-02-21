@@ -128,3 +128,9 @@ export type MainDep = SubDep & {
   child: SubDep[]
 }
 export type MainDepList = MainDep[]
+
+// 病情描述对象 Pick选定特定属性
+export type ConsultIllness = Pick<
+  PartialConsultRecord,
+  'illnessDesc' | 'illnessTime' | 'consultFlag' | 'pictures'
+>

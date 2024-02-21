@@ -1,11 +1,24 @@
 <script lang="ts" setup>
-defineProps<{
-  options: { label: string; value: number | string }[]
+import { showToast } from 'vant'
+
+const props = defineProps<{
+  options: { label: string; value: number | string; msg?: string }[]
   modelValue?: number | string
 }>()
 
 // 自定义事件
-defineEmits<{ (e: 'update:modelValue', gender: number | string): void }>()
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: number | string): void
+}>()
+
+const clickUpdate = (item: { value: string | number; msg?: string }) => {
+  if (item.value === props.modelValue) {
+    showToast(item.msg)
+    emit('update:modelValue', 5)
+  } else {
+    emit('update:modelValue', item.value)
+  }
+}
 </script>
 
 <template>
@@ -15,7 +28,7 @@ defineEmits<{ (e: 'update:modelValue', gender: number | string): void }>()
       :class="{ active: modelValue === item.value }"
       v-for="item in options"
       :key="item.value"
-      @click="$emit('update:modelValue', item.value)"
+      @click="clickUpdate(item)"
     >
       {{ item.label }}
     </div>
@@ -26,7 +39,6 @@ defineEmits<{ (e: 'update:modelValue', gender: number | string): void }>()
 .cp-radio-btn {
   display: flex;
   .item {
-    width: 30px;
     height: 32px;
     padding: 0 14px;
     color: var(--cp-text2);

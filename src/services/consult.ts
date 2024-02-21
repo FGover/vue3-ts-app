@@ -3,6 +3,7 @@ import type {
   ArticleListParams,
   DoctorListPagination,
   FollowType,
+  Image,
   MainDepList,
   PageParams
 } from '@/types/consult'
@@ -22,3 +23,10 @@ export const followOrUnfollow = (id: string, type: FollowType) =>
 
 // 获取科室信息
 export const getAllDep = () => request<MainDepList>('dep/all')
+
+// 上传图片
+export const uploadImage = (file: File) => {
+  const fd = new FormData()
+  fd.append('image', file)
+  return request<Image>('upload', 'POST', fd)
+}
