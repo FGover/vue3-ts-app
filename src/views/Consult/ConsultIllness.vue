@@ -1,13 +1,15 @@
 <script lang="ts" setup>
 import { IllnessTime } from '@/enum'
-import router from '@/router'
 import { uploadImage } from '@/services/consult'
 import { useConsultStore } from '@/stores'
-import type { ConsultIllness } from '@/types/consult'
+import type { ConsultIllness, ImgList } from '@/types/consult'
 import { showToast } from 'vant'
 import type { UploaderAfterRead, UploaderFileListItem } from 'vant/lib/uploader/types'
+import { onMounted } from 'vue'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { computed, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const timeOptions = [
   { label: '一周内', value: IllnessTime.Week, msg: '请填写患病时间信息' },
@@ -28,7 +30,7 @@ const form = ref<ConsultIllness>({
 })
 
 // 上传图片
-const fileList = ref([])
+const fileList = ref<ImgList>([])
 const afterRead: UploaderAfterRead = (item) => {
   console.log(item)
   if (Array.isArray(item)) {
@@ -111,6 +113,15 @@ const next = () => {
   consultStore.setIllness(form.value)
   router.push('/user/patient?isChange=1')
 }
+
+// 数据回显
+onMounted(() => {
+  if (consultStore.consultInfo.illnessDesc) {
+    const { illnessDesc, pictures, consultFlag, illnessTime } = consultStore.consultInfo
+    form.value = { illnessDesc, pictures, consultFlag, illnessTime }
+    fileList.value = pictures || []
+  }
+})
 </script>
 
 <template>

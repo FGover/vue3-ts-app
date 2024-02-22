@@ -92,8 +92,11 @@ export type Image = {
   url: string
 }
 
+export type ImgList = Image[]
+
 // 问诊记录
 export type ConsultRecord = {
+  // 问诊id
   id: string
   // 问诊类型
   type: ConsultType
@@ -105,7 +108,7 @@ export type ConsultRecord = {
   // 是否就诊过：0未就诊过 1就诊过
   consultFlag: 0 | 1
   // 图片数组
-  pictures: Image[]
+  pictures: ImgList
   // 患者Id
   patientId: string
   // 优惠券Id
@@ -134,3 +137,20 @@ export type ConsultIllness = Pick<
   PartialConsultRecord,
   'illnessDesc' | 'illnessTime' | 'consultFlag' | 'pictures'
 >
+
+// 问诊订单预支付参数类型
+export type ConsultOrderPrePayParams = Pick<PartialConsultRecord, 'type' | 'illnessType'>
+
+// 问诊订单预支付信息返回响应数据类型
+export type ConsultOrderPrePayInfo = {
+  // 积分抵扣
+  pointDeduction: number
+  // 优惠券抵扣
+  couponDeduction: number
+  // 优惠券ID
+  couponId: string
+  // 需付款
+  payment: number
+  // 实付款
+  actualPayment: number
+}

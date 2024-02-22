@@ -1,11 +1,14 @@
 import type {
   ArticleListPagination,
   ArticleListParams,
+  ConsultOrderPrePayInfo,
+  ConsultOrderPrePayParams,
   DoctorListPagination,
   FollowType,
   Image,
   MainDepList,
-  PageParams
+  PageParams,
+  PartialConsultRecord
 } from '@/types/consult'
 import { request } from '@/utils/request'
 
@@ -30,3 +33,18 @@ export const uploadImage = (file: File) => {
   fd.append('image', file)
   return request<Image>('upload', 'POST', fd)
 }
+
+// 预支付信息
+export const getConsultOrderPrePayInfo = (params: Partial<ConsultOrderPrePayParams>) =>
+  request<ConsultOrderPrePayInfo>('patient/consult/order/pre', 'GET', params)
+
+// 生成订单
+export const createConsultOrder = (data: PartialConsultRecord) =>
+  request<{ id: string }>('patient/consult/order', 'POST', data)
+
+// 获取支付订单跳转地址
+export const getConsultPayOrderUrl = (params: {
+  paymentMethod: 0 | 1
+  orderId: string
+  payCallback: string
+}) => request<{ payUrl: string }>('patient/consult/pay', 'POST', params)

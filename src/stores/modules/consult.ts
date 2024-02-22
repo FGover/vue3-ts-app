@@ -27,8 +27,29 @@ export const useConsultStore = defineStore(
       consultInfo.value.pictures = illness.pictures
       consultInfo.value.consultFlag = illness.consultFlag
     }
+    // 记录选中的患者
+    const setPatient = (id: string) => {
+      consultInfo.value.patientId = id
+    }
+    // 记录优惠券
+    const setCoupon = (id: string) => {
+      consultInfo.value.couponId = id
+    }
+    // 清理数据
+    const clear = () => {
+      consultInfo.value = {}
+    }
 
-    return { consultInfo, setType, setIllnessType, setDep, setIllness }
+    return {
+      consultInfo,
+      setType,
+      setIllnessType,
+      setDep,
+      setIllness,
+      setPatient,
+      setCoupon,
+      clear
+    }
   },
   { persist: true }
 )

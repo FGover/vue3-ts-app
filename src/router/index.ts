@@ -47,10 +47,31 @@ const router = createRouter({
       component: () => import('@/views/Consult/ConsultIllness.vue')
     },
     {
+      path: '/consult/pay',
+      name: 'pay',
+      meta: { title: '问诊支付' },
+      component: () => import('@/views/Consult/ConsultPay.vue')
+    },
+    {
       path: '/consult/doctor',
       name: 'doctor',
       meta: { title: '选择科室' },
       component: () => import('@/views/Consult/ConsultDoctor.vue')
+    },
+    {
+      path: '/room',
+      name: 'room',
+      meta: { title: '问诊室' },
+      component: () => import('@/views/Room/index.vue'),
+      beforeEnter(to) {
+        if (to.query.payResult === 'false') return '/user/consult'
+      }
+    },
+    {
+      path: '/user/consult',
+      name: 'consult',
+      meta: { title: '问诊页面' },
+      component: () => import('@/views/User/UserConsult.vue')
     },
     {
       path: '/',

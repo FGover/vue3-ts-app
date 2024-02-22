@@ -1,18 +1,29 @@
 <script lang="ts" setup>
+import router from '@/router'
 import { getPatientList, addPatient, updatePatient, delPatient } from '@/services/user'
+import { useConsultStore } from '@/stores'
 import type { PatientList, Patient } from '@/types/user'
 import { nameRules, idCardRules } from '@/utils/rules'
 import { showConfirmDialog, type FormInstance, showSuccessToast, showToast } from 'vant'
-import { computed } from 'vue'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
 
+// const count = ref(10)
 const patientList = ref<PatientList>([])
+// 获取患者信息
 const getPatient = async () => {
   const { data: res } = await getPatientList()
   patientList.value = res
+  // 默认选中患者高亮
+  if (isChange.value && patientList.value.length) {
+    const defaultPatient = patientList.value.find((item) => item.defaultFlag === 1)
+    if (defaultPatient) {
+      patientId.value = defaultPatient.id
+    } else {
+      patientId.value = patientList.value[0].id
+    }
+  }
 }
-
-// const count = ref(10)
 
 const options = [
   { label: '男', value: 1, msg: '请填写性别' },
@@ -80,6 +91,7 @@ const onSubmit = async () => {
   }
 }
 
+// 删除患者
 const deletePatient = () => {
   showConfirmDialog({
     title: '温馨提示',
@@ -96,6 +108,22 @@ const deletePatient = () => {
     })
 }
 
+const route = useRoute()
+// 是否 选择患者 | 家庭档案
+const isChange = computed(() => route.query.isChange === '1')
+const patientId = ref<string>()
+const selectedPatient = (item: Patient) => {
+  if (isChange.value) {
+    patientId.value = item.id
+  }
+}
+const consultStore = useConsultStore()
+const next = () => {
+  if (!patientId.value) return showToast('请选择患者')
+  consultStore.setPatient(patientId.value)
+  router.push('/consult/pay')
+}
+
 onMounted(() => {
   getPatient()
 })
@@ -103,9 +131,19 @@ onMounted(() => {
 
 <template>
   <div class="patient-page">
-    <cp-nav-bar title="家庭档案"></cp-nav-bar>
+    <cp-nav-bar :title="isChange ? '选择患者' : '家庭档案'"></cp-nav-bar>
+    <div class="patient-change" v-if="isChange">
+      <h3>请选择患者信息</h3>
+      <p>以便医生给出更准确的治疗，信息仅医生可见</p>
+    </div>
     <div class="patient-list">
-      <div class="patient-item" v-for="item in patientList" :key="item.id">
+      <div
+        class="patient-item"
+        v-for="item in patientList"
+        :key="item.id"
+        @click="selectedPatient(item)"
+        :class="{ selected: patientId === item.id }"
+      >
         <div class="info">
           <div class="info_tp">
             <span class="name">{{ item.name }}</span>
@@ -116,8 +154,9 @@ onMounted(() => {
             <span>{{ item.age }}岁</span>
           </div>
         </div>
-        <div class="icon">
-          <cp-icon name="user-edit" @click="showPopup(item)"></cp-icon>
+        <!-- click.stop阻止事件冒泡 -->
+        <div class="icon" @click.stop="showPopup(item)">
+          <cp-icon name="user-edit"></cp-icon>
         </div>
         <div class="tag" v-if="item.defaultFlag">默认</div>
       </div>
@@ -177,12 +216,25 @@ onMounted(() => {
         @update:modelValue="gender = $event"
       ></cp-radio-btn> -->
     </div>
+    <div class="patient-next" v-if="isChange">
+      <van-button type="primary" round block @click="next">下一步</van-button>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .patient-page {
   padding: 0 0 80px;
+  .patient-change {
+    padding: 15px;
+    h3 {
+      font-weight: normal;
+      margin-bottom: 5px;
+    }
+    p {
+      color: var(--cp-text3);
+    }
+  }
   .patient-list {
     padding: 15px;
     .patient-item {
@@ -260,6 +312,19 @@ onMounted(() => {
       padding: 0 10px;
       margin-bottom: 10px;
     }
+    .van-button {
+      padding: 15px;
+      bottom: 0px;
+    }
+  }
+  .patient-next {
+    padding: 15px;
+    background-color: #fff;
+    position: fixed;
+    left: 1%;
+    bottom: -25px;
+    width: 90%;
+    height: 80px;
   }
 }
 </style>
