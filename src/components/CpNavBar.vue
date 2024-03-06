@@ -18,7 +18,7 @@ const onClickRight = () => {
 }
 
 // 回退，用history.state 信息
-// console.log(history.state)
+console.log(history.state)
 const router = useRouter()
 const onClickLeft = () => {
   if (props.back) return props.back()
@@ -45,6 +45,7 @@ const onClickLeft = () => {
 <style lang="scss" scoped>
 :deep() {
   .van-nav-bar {
+    border-bottom: 1px solid var(--cp-bg);
     &__arrow {
       color: var(--cp-text1) !important;
       font-size: 18px;

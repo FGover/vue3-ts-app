@@ -1,6 +1,7 @@
 import type {
   ArticleListPagination,
   ArticleListParams,
+  ConsultOrderItem,
   ConsultOrderPrePayInfo,
   ConsultOrderPrePayParams,
   DoctorListPagination,
@@ -48,3 +49,20 @@ export const getConsultPayOrderUrl = (params: {
   orderId: string
   payCallback: string
 }) => request<{ payUrl: string }>('patient/consult/pay', 'POST', params)
+
+// 获取问诊订单详情
+export const getConsultOrderDetail = (orderId: string) =>
+  request<ConsultOrderItem>('patient/consult/order/detail', 'GET', { orderId })
+
+// 获取处方信息
+export const getPrescriptionPic = (id: string) =>
+  request<{ url: string }>(`patient/consult/prescription/${id}`)
+
+// 评价
+export const evaluateConsultOrder = (data: {
+  docId: string
+  orderId: string
+  score: number
+  content: string
+  anonymousFlag: 0 | 1
+}) => request<{ id: string }>('patient/order/evaluate', 'POST', data)

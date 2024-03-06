@@ -3,8 +3,10 @@ import { useUserStore } from '@/stores'
 import { showToast } from 'vant'
 import router from '@/router'
 
+export const baseURL = 'https://consult-api.itheima.net/'
+
 const httpInstance = axios.create({
-  baseURL: 'https://consult-api.itheima.net/',
+  baseURL,
   timeout: 10000
 })
 

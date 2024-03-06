@@ -1,0 +1,249 @@
+.msg-page {
+  padding: 5px 15px;
+
+  .msg-illness {
+    background-color: #fff;
+    border-radius: 8px;
+    font-size: 12px;
+    margin-bottom: 15px;
+
+    .patient {
+      padding: 10px;
+      margin-bottom: 15px;
+
+      p {
+        &:first-child {
+          font-size: 16px;
+        }
+
+        &:last-child {
+          margin-top: 5px;
+          color: var(--cp-tip);
+        }
+      }
+    }
+
+    .van-row {
+      padding: 10px;
+
+      .van-col {
+        &:nth-child(-n + 2) {
+          margin-bottom: 5px;
+        }
+
+        &:nth-child(2n) {
+          color: var(--cp-tip);
+        }
+      }
+    }
+  }
+
+  .msg-tip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    margin-bottom: 15px;
+
+    .content {
+      height: 34px;
+      line-height: 34px;
+      background-color: #fff;
+      color: var(--cp-tip);
+      border-radius: 17px;
+      padding: 0 16px;
+      max-width: 100%;
+
+      .green {
+        color: var(--cp-primary);
+      }
+    }
+  }
+
+  .msg-send-to {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+
+    .content {
+      max-width: 240px;
+      min-width: 52px;
+
+      .time {
+        color: var(--cp-tip);
+        margin-bottom: 5px;
+        text-align: right;
+      }
+
+      .txt {
+        padding: 8px 12px;
+        background-color: var(--cp-primary);
+        color: #fff;
+        font-size: 15px;
+        border-radius: 8px;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          right: -18px;
+          top: 14px;
+          width: 0;
+          height: 0;
+          border-top: 7px solid transparent;
+          border-right: 10px solid transparent;
+          border-left: 11px solid var(--cp-primary);
+          border-bottom: 7px solid transparent;
+        }
+      }
+
+      .van-image {
+        height: 150px;
+        width: 150px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--cp-line);
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    .van-image {
+      width: 40px;
+      height: 40px;
+      margin-left: 13px;
+      border-radius: 4px;
+      overflow: hidden;
+      padding-top: 15px;
+    }
+  }
+
+  .msg-send-from {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+
+    .content {
+      max-width: 240px;
+      min-width: 52px;
+
+      .time {
+        color: var(--cp-tip);
+        margin-bottom: 5px;
+      }
+
+      .txt {
+        padding: 8px 12px;
+        background-color: #fff;
+        font-size: 15px;
+        border-radius: 8px;
+        position: relative;
+
+        &::before {
+          content: '';
+          position: absolute;
+          left: -18px;
+          top: 14px;
+          width: 0;
+          height: 0;
+          border-top: 7px solid transparent;
+          border-right: 10px solid #fff;
+          border-left: 11px solid transparent;
+          border-bottom: 7px solid transparent;
+        }
+      }
+
+      .van-image {
+        height: 150px;
+        width: 150px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--cp-line);
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    .van-image {
+      width: 40px;
+      height: 40px;
+      margin-right: 13px;
+      overflow: hidden;
+      border-radius: 4px;
+      padding-top: 15px;
+    }
+  }
+
+  .msg-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+
+    .content {
+      .head {
+        .head-tit {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          h3 {
+            font-weight: 550;
+            font-size: 16px;
+          }
+
+          .icon {
+            color: var(--cp-tip)
+          }
+        }
+
+        .info,
+        .time {
+          font-size: 13px;
+          color: var(--cp-tip);
+          margin-top: 5px;
+        }
+
+        .time {
+          padding-bottom: 20px;
+          border-bottom: 1px solid var(--cp-bg);
+        }
+      }
+
+      .body {
+        padding: 15px 0;
+        .body-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 15px;
+          .drug {
+            p {
+              &:first-child {
+                font-size: 16px;
+                color: var(--cp-text1);
+              }
+              &:last-child {
+                font-size: 13px;
+                color: var(--cp-tip);
+                margin-top: 5px;
+              }
+            }
+            .num {
+              color: var(--cp-text1);
+            }
+          }
+        }
+      }
+    }
+
+    .foot {
+      background-color: var(--cp-plain);
+      color: var(--cp-primary);
+      font-size: 16px;
+      text-align: center;
+      height: 42px;
+      line-height: 42px;
+    }
+  }
+}

@@ -21,3 +21,61 @@ export enum IllnessTime {
   // 半年以上
   More
 }
+
+// 消息类型
+export enum MessageType {
+  // 文字聊天
+  MsgText = 1,
+  // 消息聊天
+  MsgImage = 4,
+  // 患者信息
+  CardPat = 21,
+  // 处方信息
+  CardPre = 22,
+  // 未评价信息
+  CardEvaForm = 23,
+  // 已评价信息
+  CardEva = 24,
+  // 通用通知
+  Notify = 31,
+  // 温馨提示
+  NotiyfTip = 32,
+  // 取消提示
+  NotifyCancel = 33
+}
+
+// 处方状态
+export enum PrescriptionStatus {
+  // 未付款
+  NotPayment = 1,
+  // 已付款
+  Payment,
+  // 已失效
+  Invalid
+}
+
+// 订单状态
+export enum OrderStatus {
+  // 1. 问诊订单
+  // 未支付
+  ConsultPay = 1,
+  // 待接诊
+  ConsultWait = 2,
+  // 问诊中
+  ConsultChat = 3,
+  // 问诊完成
+  ConsultComplete = 4,
+  // 取消问诊
+  ConsultCancel = 5,
+  // 2. 药品订单
+  // 待支付
+  MedicinePay = 10,
+  // 待发货
+  MedicineSend = 11,
+  // 待收货
+  MedicineTake = 12,
+  // 已完成
+  MedicineComplete = 13,
+  // 已取消
+  MedicineCancel = 14
+}

@@ -1,4 +1,5 @@
-import { ConsultType, IllnessTime } from '@/enum'
+import { ConsultType, IllnessTime, OrderType } from '@/enum'
+import type { Patient } from './user'
 
 // 文章信息类型
 export type ArticleInfo = {
@@ -151,6 +152,38 @@ export type ConsultOrderPrePayInfo = {
   couponId: string
   // 需付款
   payment: number
+  // 实付款
+  actualPayment: number
+}
+
+// 问诊订单单项信息
+export type ConsultOrderItem = ConsultRecord & {
+  // 创建时间
+  createTime: string
+  // 医生信息
+  docInfo?: Doctor
+  // 患者信息
+  patientInfo: Patient
+  // 订单编号
+  orderNo: string
+  // 订单状态
+  status: OrderType
+  // 状态文字
+  statusValue: string
+  // 类型问诊文字
+  typeValue: string
+  // 倒计时
+  countdown: number
+  // 处方ID
+  prescriptionId?: string
+  // 评价ID
+  evaluateId: number
+  // 应付款
+  payment: number
+  // 优惠券抵扣
+  couponDeduction: number
+  // 积分抵扣
+  pointDeduction: number
   // 实付款
   actualPayment: number
 }
