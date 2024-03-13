@@ -1,22 +1,15 @@
 <script lang="ts" setup>
 import EvaluateCard from './EvaluateCard.vue'
-import { IllnessTime, MessageType } from '@/enum'
+import { MessageType } from '@/enum'
 import { useUserStore } from '@/stores'
 import type { ImgList } from '@/types/consult'
 import type { Message } from '@/types/room'
-import { timeOptions, flagOptions } from '@/utils/consult'
+import { getIllnessTimeText, getFlagText } from '@/utils/consult'
 import { showImagePreview, showToast } from 'vant'
 import dayjs from 'dayjs'
-import { getPrescriptionPic } from '@/services/consult'
+import { useShowPrescription } from '@/composables'
 
 const userStore = useUserStore()
-
-const getIllnessTimeText = (time: IllnessTime) => {
-  return timeOptions.find((item) => item.value === time)?.label
-}
-const getFlagText = (flag: 0 | 1) => {
-  return flagOptions.find((item) => item.value === flag)?.label
-}
 
 // 预览图片
 const onPreviewImage = (images?: ImgList) => {
@@ -24,12 +17,8 @@ const onPreviewImage = (images?: ImgList) => {
   else showToast('暂无图片')
 }
 
-const onShowPre = async (id: string) => {
-  if (id) {
-    const { data: res } = await getPrescriptionPic(id)
-    showImagePreview([res.url])
-  }
-}
+// 查看处方
+const { onShowPre } = useShowPrescription()
 
 const previewImage = (url: string) => {
   showImagePreview([url])

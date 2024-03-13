@@ -60,8 +60,8 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <cp-nav-bar @click-right="$router.push('/register')" right-text="注册" />
   <div class="login-page">
-    <cp-nav-bar @click-right="$router.push('/register')" right-text="注册" />
     <div class="login-head">
       <h3>{{ isPass ? '密码登录' : '短信验证码登录' }}</h3>
       <a href="javascript:;">
@@ -127,6 +127,9 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss" scoped>
+.login-page {
+  padding: 46px 0;
+}
 .login-head {
   padding: 30px 30px 50px;
   display: flex;

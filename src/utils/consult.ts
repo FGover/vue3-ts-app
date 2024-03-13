@@ -11,4 +11,11 @@ const flagOptions = [
   { label: '没就诊过', value: 0, msg: '请填写是否就诊信息' }
 ]
 
-export { timeOptions, flagOptions }
+const getIllnessTimeText = (time: IllnessTime) => {
+  return timeOptions.find((item) => item.value === time)?.label
+}
+const getFlagText = (flag: 0 | 1) => {
+  return flagOptions.find((item) => item.value === flag)?.label
+}
+
+export { timeOptions, flagOptions, getIllnessTimeText, getFlagText }

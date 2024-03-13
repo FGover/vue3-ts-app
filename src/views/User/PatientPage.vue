@@ -224,7 +224,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .patient-page {
-  padding: 0 0 80px;
+  padding: 46px 0 80px;
   .patient-change {
     padding: 15px;
     h3 {

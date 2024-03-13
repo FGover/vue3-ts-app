@@ -38,6 +38,7 @@ const onClickLeft = () => {
       left-arrow
       @click-left="onClickLeft"
       @click-right="onClickRight"
+      fixed
     ></van-nav-bar>
   </div>
 </template>

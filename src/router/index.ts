@@ -69,9 +69,13 @@ const router = createRouter({
     },
     {
       path: '/user/consult',
-      name: 'consult',
-      meta: { title: '问诊页面' },
-      component: () => import('@/views/User/UserConsult.vue')
+      meta: { title: '问诊记录' },
+      component: () => import('@/views/User/ConsultRecord.vue')
+    },
+    {
+      path: '/user/consult/:id',
+      meta: { title: '问诊详情' },
+      component: () => import('@/views/User/ConsultDetail.vue')
     },
     {
       path: '/',

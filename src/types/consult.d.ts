@@ -187,3 +187,15 @@ export type ConsultOrderItem = ConsultRecord & {
   // 实付款
   actualPayment: number
 }
+
+// 订单列表参数
+export type ConsultOrderListParams = PageParams & {
+  type: ConsultType
+}
+
+// 订单响应数据
+export type ConsultOrderListRes = {
+  total: number
+  pageList: number
+  rows: ConsultOrderItem[]
+}

@@ -162,7 +162,8 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .consult-illness-page {
-  padding: 15px;
+  padding: 60px 15px;
+  height: calc(100vh - 120px);
   .illness-tip {
     display: flex;
     img {
@@ -256,7 +257,6 @@ onMounted(() => {
   }
   .van-button {
     font-size: 16px;
-    margin-bottom: 30px;
     background: var(--cp-primary);
     color: #fff;
     &.disabled {
