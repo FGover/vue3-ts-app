@@ -8,6 +8,7 @@ const props = defineProps<{
   orderId: string
   actualPayment: number
   onClickOverlay?: () => void
+  payCallback: string
 }>()
 const emit = defineEmits<{
   (e: 'update:show', value: boolean): void
@@ -21,7 +22,7 @@ const pay = async () => {
   const { data: res } = await getConsultPayOrderUrl({
     orderId: props.orderId,
     paymentMethod: payMethod.value,
-    payCallback: 'http://localhost:5173/room'
+    payCallback: 'http://localhost:5173' + props.payCallback
   })
   window.location.href = res.payUrl
 }

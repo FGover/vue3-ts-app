@@ -326,5 +326,8 @@ onMounted(() => {
     width: 90%;
     height: 80px;
   }
+  .van-form {
+    margin-top: 46px;
+  }
 }
 </style>

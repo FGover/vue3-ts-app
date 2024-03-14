@@ -1,14 +1,16 @@
 <script lang="ts" setup>
 import EvaluateCard from './EvaluateCard.vue'
-import { MessageType } from '@/enum'
+import { MessageType, PrescriptionStatus } from '@/enum'
 import { useUserStore } from '@/stores'
 import type { ImgList } from '@/types/consult'
-import type { Message } from '@/types/room'
+import type { Message, Prescription } from '@/types/room'
 import { getIllnessTimeText, getFlagText } from '@/utils/consult'
 import { showImagePreview, showToast } from 'vant'
 import dayjs from 'dayjs'
 import { useShowPrescription } from '@/composables'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const userStore = useUserStore()
 
 // 预览图片
@@ -19,9 +21,18 @@ const onPreviewImage = (images?: ImgList) => {
 
 // 查看处方
 const { onShowPre } = useShowPrescription()
-
 const previewImage = (url: string) => {
   showImagePreview([url])
+}
+
+// 跳转支付处方
+const buy = (pre?: Prescription) => {
+  if (!pre) return
+  if (pre.status === PrescriptionStatus.Invalid) return showToast('处方已过期')
+  if (pre.status === PrescriptionStatus.NotPayment && !pre.orderId) {
+    return router.push(`/order/pay?id=${pre.id}`)
+  }
+  router.push(`/order/${pre.orderId}`)
 }
 
 // 时间格式
@@ -157,7 +168,7 @@ defineProps<{
         </div>
       </div>
       <div class="foot">
-        <span>购买药品</span>
+        <span @click="buy(item.msg.prescription)">购买药品</span>
       </div>
     </div>
     <!-- 评价卡片 -->

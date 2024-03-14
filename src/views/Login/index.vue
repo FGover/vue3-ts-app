@@ -33,7 +33,7 @@ const code = ref('')
 // 发送短信验证码
 const time = ref(0)
 const form = ref<FormInstance>()
-let timer: number
+let timer: any
 const onSendSms = async () => {
   if (time.value > 0) return
   await form.value?.validate('mobile')

@@ -1,8 +1,10 @@
 import { followOrUnfollow, getPrescriptionPic, cancelOrder, deleteOrder } from '@/services/consult'
+import { getMedicalOrderDetail } from '@/services/order'
 import type { FollowType, ConsultOrderItem } from '@/types/consult'
+import type { OrderDetail } from '@/types/order'
 import { OrderStatus } from '@/enum'
 import { showToast, showImagePreview, showSuccessToast, showFailToast } from 'vant'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 export const useFollow = (type: FollowType = 'doc') => {
   const loading = ref(false)
@@ -55,7 +57,7 @@ export const useDeleteOrder = (cb: () => void) => {
       loading.value = true
       await deleteOrder(item.id)
       showSuccessToast('删除成功')
-      cb & cb()
+      cb()
     } catch {
       showFailToast('删除失败')
     } finally {
@@ -63,4 +65,19 @@ export const useDeleteOrder = (cb: () => void) => {
     }
   }
   return { loading, deleteConsultOrder }
+}
+
+export const useOrderDetail = (id: string) => {
+  const order = ref<OrderDetail>()
+  const loading = ref(false)
+  onMounted(async () => {
+    try {
+      loading.value = true
+      const { data: res } = await getMedicalOrderDetail(id)
+      order.value = res
+    } finally {
+      loading.value = false
+    }
+  })
+  return { loading, order }
 }

@@ -78,6 +78,26 @@ const router = createRouter({
       component: () => import('@/views/User/ConsultDetail.vue')
     },
     {
+      path: '/order/pay',
+      meta: { title: '药品支付' },
+      component: () => import('@/views/Order/OrderPay.vue')
+    },
+    {
+      path: '/order/pay/result',
+      meta: { title: '药品支付结果' },
+      component: () => import('@/views/Order/OrderPayResult.vue')
+    },
+    {
+      path: '/order/:id',
+      meta: { title: '药品订单详情' },
+      component: () => import('@/views/Order/OrderDetail.vue')
+    },
+    {
+      path: '/order/logistics/:id',
+      meta: { title: '物流详情' },
+      component: () => import('@/views/Order/OrderLogistics.vue')
+    },
+    {
       path: '/',
       redirect: '/home',
       component: () => import('@/views/Layout/index.vue'),
@@ -124,7 +144,7 @@ router.beforeEach((to) => {
 
 // 全局后置导航 标题
 router.afterEach((to) => {
-  document.title = `${to.meta.title || ''} - 问诊`
+  document.title = `${to.meta.title || ''} - ${import.meta.env.VITE_APP_TITLE}`
   NProgress.done()
 })
 

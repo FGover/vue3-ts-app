@@ -6,7 +6,6 @@ import type { ConsultOrderPrePayInfo, PartialConsultRecord } from '@/types/consu
 import type { Patient } from '@/types/user'
 import { showConfirmDialog, showDialog, showToast } from 'vant'
 import { ref, onMounted } from 'vue'
-import CpPaySheet from '@/components/CpPaySheet.vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 const router = useRouter()
 
@@ -72,7 +71,7 @@ const onSubmit = async () => {
   consultStore.clear()
 }
 
-const showPop = () => {
+const onClickOverlay = () => {
   showConfirmDialog({
     title: '温馨提示',
     message: '取消支付将无法获得医生回复，医生接诊名额有限，是否确认取消？',
@@ -87,10 +86,6 @@ const showPop = () => {
       orderId.value = ''
       router.push('/user/consult')
     })
-}
-
-const onClickOverlay = () => {
-  showPop()
 }
 // 路由离开之前
 onBeforeRouteLeave(() => {
@@ -144,6 +139,7 @@ onBeforeRouteLeave(() => {
       :order-id="orderId"
       :actual-payment="payInfo.actualPayment"
       :on-click-overlay="onClickOverlay"
+      pay-callback="/room"
     />
   </div>
   <div class="consult-pay-page" v-else>

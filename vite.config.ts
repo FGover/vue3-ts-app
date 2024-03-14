@@ -9,9 +9,12 @@ import { VantResolver } from '@vant/auto-import-resolver'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import path from 'path'
 
+import { createHtmlPlugin } from 'vite-plugin-html'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    createHtmlPlugin(),
     vue(),
     Components({
       // 不生成组件类型文件

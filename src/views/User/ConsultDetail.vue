@@ -9,7 +9,6 @@ import ConsultMore from './components/ConsultMore.vue'
 import { useCancelOrder, useDeleteOrder, useShowPrescription } from '@/composables'
 import { useClipboard } from '@vueuse/core'
 import { showToast, showConfirmDialog } from 'vant'
-import CpPaySheet from '@/components/CpPaySheet.vue'
 
 const route = useRoute()
 const item = ref<ConsultOrderItem>()
@@ -161,6 +160,7 @@ const onClickOverlay = () => {
       :order-id="item.id"
       :actual-payment="item.actualPayment"
       :on-click-overlay="onClickOverlay"
+      pay-callback="/room"
     />
   </div>
   <div class="consult-detail-page" v-else>
